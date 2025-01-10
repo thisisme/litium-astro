@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  /** 
+   * Colors 
+   */
+   --color-primary: 255 225 55;
+   --color-secondary: 23 50 50;
+   --color-ternary: 11 24 24;
+   --color-accent: 240 98 51;
+   --color-white: 255 255 255;
+   --color-secondary-hover: 255 251 225;
+   --color-purple: 60 30 40;
+ 
+   --color-background-accent: 255 250 235;
+ 
+   --color-text: rgba(23, 50, 50, 1);
+   --color-text-white: rgba(255, 255, 255, 1);
+   --color-text-heading: var(--color-text-heading, --color-text);
+   --color-text-negative: var(--color-background-accent);
+   --color-text-negative-accent: 255 230 170;
+}
