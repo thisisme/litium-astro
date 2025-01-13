@@ -1,16 +1,22 @@
 {
-  "name": "",
+  "name": "litium-astro",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "proxy": "env-cmd -f .env.development -x litium-storefront proxy --litium \\$RUNTIME_LITIUM_SERVER_URL --storefront http://localhost:4321"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0-beta.9",
     "astro": "^5.1.5",
+    "gql.tada": "^1.8.10",
+    "graphql": "^16.10.0",
     "tailwindcss": "^4.0.0-beta.9"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0"
   }
 }
