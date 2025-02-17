@@ -1,11 +1,12 @@
-export async function query(context: string, query: string) {
+export async function executeQuery(context: string, query: string) {
+  const url = new URL('/storefront.graphql', import.meta.env.RUNTIME_LITIUM_SERVER_URL).href;
   const response = await fetch(
-    `${import.meta.env.RUNTIME_LITIUM_SERVER_URL}/storefront.graphql`, {
+    url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        "x-litium-storefront-context-url": context
+        "x-litium-storefront-context-url": "https://localhost:4321/b2c-en"
       },
       body: JSON.stringify({
         query

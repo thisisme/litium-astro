@@ -1,0 +1,34 @@
+---
+import type { Block } from "../../models/Block";
+import BannerBlock from "./BannerBlock.astro";
+import ProductsBlock from "./ProductsBlock.astro";
+
+interface Props {
+  /**
+   * List of blocks in the container.
+   */
+  blocks: Block[];
+
+  /**
+   * When true, its first block's priority is set to true.
+   * The purpose is to set first 3 block's images high priority and preload.
+   */
+  priority?: boolean;
+
+  /**
+   * A className string to set for each block's section.
+   */
+  className?: string;
+}
+const { blocks, className } = Astro.props;
+---
+
+{blocks.map((block) => (
+  <section
+    data-litium-block-id={block.systemId}
+    class={className}
+  >
+    {block.__typename === "BannerBlock" && <BannerBlock fields={block.fields} systemId={block.systemId} children={block.children} priority={block.priority}></BannerBlock>}
+    {block.__typename === "ProductsBlock" && <ProductsBlock fields={block.fields} systemId={block.systemId} children={block.children} priority={block.priority}></ProductsBlock>}
+  </section>
+))}

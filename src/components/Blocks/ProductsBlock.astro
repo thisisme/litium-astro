@@ -1,0 +1,13 @@
+---
+import type { Block } from '../../models/Block';
+import type { ContentFieldType } from '../../models/Content';
+
+interface Props {
+  fields: ContentFieldType;
+  systemId: string;
+  children?: Block[];
+  priority?: boolean;
+}
+const { fields, systemId, children } = Astro.props;
+---
+<h2>ProductsBlock</h2>

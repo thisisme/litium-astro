@@ -1,0 +1,18 @@
+---
+import type { Block } from '../../models/Block';
+import type { ContentFieldType } from '../../models/Content';
+
+interface Props {
+  fields: ContentFieldType;
+  systemId: string;
+  children?: Block[];
+  priority?: boolean;
+}
+const { fields, systemId, children, priority } = Astro.props;
+console.log("--- Banner ---")
+console.dir(fields, { depth: null })
+console.log({systemId})
+console.log({children})
+console.log({priority})
+---
+<h2>BannerBlock</h2>

@@ -1,8 +1,8 @@
-import { defineMiddleware, sequence } from "astro:middleware";
-import { query } from "./lib/ApiClient";
+import { defineMiddleware } from "astro:middleware";
+import { executeQuery } from "./lib/ApiClient";
 
 async function contentChecker() {
-  const response = query("https://localhost:3001", `
+  const response = executeQuery("https://localhost:4321", `
     query MiddlewareGetContent {
       channel {
         ...Id
@@ -94,12 +94,21 @@ async function contentChecker() {
 export const onRequest = defineMiddleware(async (context, next) => {
   const response = await contentChecker();
   const data = await response.json();
+
   if (data) {
-    return next(new Request(`https://localhost:3001/${data.data.content.__typename}`, {
-      headers: {
-        "x-redirect-to": context.url.pathname
+    if (data.errors) {
+      if (context.routePattern !== '/error') {
+        context.locals.errors = data.errors;
+        return next("/error")
       }
-    }));
+    }
+    if (data.data) {
+      return next(new Request(`${import.meta.env.RUNTIME_LITIUM_SERVER_URL}/${data.data.content.__typename}`, {
+        headers: {
+          "x-redirect-to": context.url.pathname
+        }
+      }));
+    }
   }
 
   return next();
