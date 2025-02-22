@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "proxy": "env-cmd -f .env.development -x litium-storefront proxy --litium \\$RUNTIME_LITIUM_SERVER_URL --storefront http://localhost:4321"
+    "proxy": "litium-storefront proxy --litium $(grep RUNTIME_LITIUM_SERVER_URL .env.local | cut -d '=' -f2) --storefront http://localhost:4321"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.6",

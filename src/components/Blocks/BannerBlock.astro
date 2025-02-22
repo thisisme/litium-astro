@@ -1,18 +1,47 @@
 ---
+import { Image } from 'astro:assets';
 import type { Block } from '../../models/Block';
 import type { ContentFieldType } from '../../models/Content';
+import type { PointerMediaImageItem } from '../../models/Pointers';
+import { getAbsoluteImageUrl } from '../../lib/ImageService';
+import { getBannerUrl } from '../../lib/BannerService';
 
-interface Props {
-  fields: ContentFieldType;
-  systemId: string;
-  children?: Block[];
-  priority?: boolean;
+export interface BannerType {
+  linkText: string;
+  actionText: string;
+  blockImagePointer?: PointerMediaImageItem;
+  bannerLinkToCategory?: any[];
+  bannerLinkToPage?: any[];
+  bannerLinkToProduct?: any[];
 }
+
+export interface BannerField extends ContentFieldType {
+  banners: BannerType[];
+}
+interface Props extends Block {
+  fields: BannerField;
+}
+
 const { fields, systemId, children, priority } = Astro.props;
-console.log("--- Banner ---")
-console.dir(fields, { depth: null })
-console.log({systemId})
-console.log({children})
-console.log({priority})
+const { banners } = fields;
+
 ---
-<h2>BannerBlock</h2>
+<div>
+{banners.map((banner) => (
+  <div class="banner-block">
+    <div class="title">
+      <h2 class="text-9xl text-white">{banner.linkText}</h2>
+      <a class="bg-white text-black text-3xl rounded p-4 border underline mt-4" href={getBannerUrl(banner)}>{banner.actionText}</a>
+    </div>
+    {banner?.blockImagePointer?.item && (
+      <Image
+        src={getAbsoluteImageUrl(banner.blockImagePointer.item)}
+        alt={banner.blockImagePointer?.item?.alt ?? ""}
+        width={banner.blockImagePointer.item.dimension.width ?? 0}
+        height={banner.blockImagePointer.item.dimension.height ?? 0}
+        class="image"
+      />
+    )}
+  </div>
+))}
+</div>

@@ -1,4 +1,5 @@
 import type { ContentFieldType } from "./Content";
+import type { PointerMediaImageItem } from "./Pointers";
 
 export interface Block {
   __typename: string;
