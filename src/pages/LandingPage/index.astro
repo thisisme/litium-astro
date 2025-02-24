@@ -10,10 +10,12 @@ const { data } = await response.json();
 
 <Layout metadata={data.content.metadata}>
   <h1>LandingPage</h1>
-  <BlockContainer
-    priority
-    blocks={data.content.blocks.main}
-    className=""
-  >
-  </BlockContainer>
+  <main class="mx-auto min-h-[500px] px-5 md:container">
+    <BlockContainer
+      priority
+      blocks={data.content.blocks.main}
+      className=""
+    >
+    </BlockContainer>
+  </main>
 </Layout>
