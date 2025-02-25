@@ -88,7 +88,7 @@ async function contentChecker() {
       id
     }
   `);
-    return response;
+  return response;
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {

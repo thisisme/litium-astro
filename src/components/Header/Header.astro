@@ -1,0 +1,72 @@
+---
+import { executeQuery } from "../../lib/ApiClient";
+import type { BlocksType } from "../../models/Block";
+import { query } from "./_graphql";
+const response = await executeQuery("/b2c-en", query);
+const { data } = await response.json();
+
+const { primaryNavigation } = data.channel.website.blocks as BlocksType;
+---
+<header>
+  <h1>Litium ❤️ Astro</h1>
+  <nav>
+    <ul class="flex">
+      {primaryNavigation.map((navigation) => (
+        <li class="not-first:pl-4">
+          <div class="relative">
+            {navigation.children ? (
+              <button class="flex cursor-pointer items-center" popovertarget={`dropdown-${navigation.systemId}`}>
+                {navigation.fields.navigationLink.text}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+              <div popover="auto" id={`dropdown-${navigation.systemId}`} class="dropdown w-full m-0">
+                <div class="mb-4">
+                  <h2>{navigation.fields.navigationLink.text}</h2>
+                  <a class="underline" href={navigation.fields.navigationLink.url}>See all in <span class="lowercase">{navigation.fields.navigationLink.text}</span></a>
+                </div>
+                <div class="flex">
+                {navigation.children.map((nav) => (
+                  <div class="flex">
+                    {nav.children && nav.children.map((field) => (
+                      <div>
+                        {field.fields.categoryLink && field.fields.categoryLink.map((categoryLink) => (
+                          <h2>{categoryLink.item.name}</h2>
+                          <ul>
+                            {categoryLink.item.children.nodes && categoryLink.item.children.nodes.map((node) => (
+                                <li>
+                                  <a href={node.url}>{node.name}</a>
+                                </li>
+                            ))}
+                          </ul>
+                        ))}
+                      </div>
+                      <div>
+                        {field.fields.navigationLinksHeader && (
+                          <h2>{field.fields.navigationLinksHeader.text}</h2>
+                        )}
+                        {field.fields.navigationLinks && (
+                          <ul>
+                            {field.fields.navigationLinks.map((navigationLink) => (
+                              <li>
+                                <a href={navigationLink.navigationLink.url}>{navigationLink.navigationLink.text}</a>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+                </div>
+              </div>
+            ): (
+              <a class="underline" href={navigation.fields.navigationLink.url}>{navigation.fields.navigationLink.text}</a>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>

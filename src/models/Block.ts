@@ -1,6 +1,10 @@
 import type { ContentFieldType } from "./Content";
 import type { PointerMediaImageItem } from "./Pointers";
 
+export interface BlocksType {
+  [key: string]: Block[];
+}
+
 export interface Block {
   __typename: string;
   fields: ContentFieldType;

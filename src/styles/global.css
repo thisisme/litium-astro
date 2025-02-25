@@ -21,4 +21,9 @@
 }
 
 @layer components {
+  .dropdown:popover-open {
+    inset: unset;
+    position: absolute;
+    right: 0;
+  }
 }
