@@ -1,0 +1,45 @@
+---
+import { twJoin, twMerge } from "tailwind-merge";
+
+interface Props {
+  heading: string;
+  open?: boolean;
+  class?: string;
+}
+
+const {
+  heading,
+  open,
+  class: className
+} = Astro.props;
+---
+<details
+  data-component="accordion"
+  class={twMerge(
+    "accordion",
+    "border-b",
+    className,
+  )}
+  open={open}
+>
+  <summary class={twJoin(
+    "flex cursor-pointer",
+    "text-2xl"
+  )}>
+    {heading}
+    <svg aria-hidden="true" class="fill-current flex-shrink-0 ml-auto" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></svg>
+  </summary>
+  <div class="mb-4">
+    <slot />
+  </div>
+</details>
+
+<style>
+details.accordion:not([open]) > summary > svg {
+	transform: rotate(180deg);
+}
+details.accordion:open > summary > svg {
+	transform: rotate(0deg);
+}
+
+</style>

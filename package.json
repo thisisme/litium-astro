@@ -7,11 +7,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "proxy": "litium-storefront proxy --litium $(grep RUNTIME_LITIUM_SERVER_URL .env.local | cut -d '=' -f2) --storefront http://localhost:4321"
+    "proxy": "litium-storefront proxy --litium https://demo.litium.com --storefront http://localhost:4321"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.6",
-    "astro": "^5.3.0",
+    "astro": "^5.7.13",
     "gql.tada": "^1.8.10",
     "graphql": "^16.10.0",
     "tailwind-merge": "^3.0.2",

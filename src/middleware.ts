@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro:middleware";
-import { executeQuery } from "./lib/ApiClient";
+import { executeQuery } from "./lib/api-client";
 
 async function contentChecker() {
   const response = executeQuery("https://localhost:4321", `

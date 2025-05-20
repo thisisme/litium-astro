@@ -1,0 +1,24 @@
+---
+import { twJoin } from "tailwind-merge";
+
+interface Props {
+  as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
+  styleAs?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
+  class?: string;
+}
+
+const {
+  as: element,
+  styleAs,
+  class: className
+} = Astro.props;
+
+const TextComponent = element;
+---
+<TextComponent
+  class={twJoin(
+    `text-${styleAs ?? element}`,
+    className
+  )}>
+  <slot />
+</TextComponent>

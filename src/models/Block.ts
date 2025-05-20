@@ -1,5 +1,5 @@
-import type { ContentFieldType } from "./Content";
-import type { PointerMediaImageItem } from "./Pointers";
+import type { ContentFieldType } from "./content";
+import type { PointerMediaImageItem } from "./pointers";
 
 export interface BlocksType {
   [key: string]: Block[];
@@ -15,7 +15,19 @@ export interface Block {
    * Flag to indicate if block gets high priority and preload.
    * The purpose is to set its images high priority and preload.
    * Block implementation should pass it to Images that should preload.
-   * More info about Image's priority: https://nextjs.org/docs/api-reference/next/image#priority
    */
   priority?: boolean;
+}
+
+export interface BannerType {
+  linkText: string;
+  actionText: string;
+  blockImagePointer?: PointerMediaImageItem;
+  bannerLinkToCategory?: any[];
+  bannerLinkToPage?: any[];
+  bannerLinkToProduct?: any[];
+}
+
+export interface BannerField extends ContentFieldType {
+  banners: BannerType[];
 }

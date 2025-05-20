@@ -1,8 +1,9 @@
 ---
-import BlockContainer from "../../components/Blocks/BlockContainer.astro";
-import Layout from "../../layouts/Layout.astro";
-import { executeQuery } from "../../lib/ApiClient";
+import BlockContainer from "@/components/connectors/blocks/block-container.astro";
+import Layout from "@/layouts/layout.astro";
+import { executeQuery } from "@/lib/api-client";
 import { query } from "./_graphql";
+import Accordion from "@/components/ui/accordion.astro";
 
 const response = await executeQuery("https://localhost:4321", query);
 const { data } = await response.json();
@@ -16,5 +17,6 @@ const { data } = await response.json();
       className=""
     >
     </BlockContainer>
+    <Accordion heading="Rubrik">Här kommer det innehåll</Accordion>
   </main>
 </Layout>

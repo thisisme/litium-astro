@@ -1,6 +1,6 @@
 ---
-import { executeQuery } from "../../lib/ApiClient";
-import type { BlocksType } from "../../models/Block";
+import { executeQuery } from "../../../lib/api-client";
+import type { BlocksType } from "../../../models/block";
 import { query } from "./_graphql";
 const response = await executeQuery("/b2c-en", query);
 const { data } = await response.json();

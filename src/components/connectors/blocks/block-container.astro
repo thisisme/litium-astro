@@ -1,7 +1,6 @@
 ---
-import type { Block } from "../../models/Block";
-import BannerBlock from "./BannerBlock.astro";
-import ProductsBlock from "./ProductsBlock.astro";
+import type { Block } from "@/models/block";
+import BlockRender from "./block-render.astro";
 
 interface Props {
   /**
@@ -20,7 +19,9 @@ interface Props {
    */
   className?: string;
 }
+
 const { blocks, className } = Astro.props;
+
 ---
 
 {blocks.map((block) => (
@@ -28,7 +29,6 @@ const { blocks, className } = Astro.props;
     data-litium-block-id={block.systemId}
     class={className}
   >
-    {block.__typename === "BannerBlock" && <BannerBlock fields={block.fields} systemId={block.systemId} children={block.children} priority={block.priority}></BannerBlock>}
-    {block.__typename === "ProductsBlock" && <ProductsBlock fields={block.fields} systemId={block.systemId} children={block.children} priority={block.priority}></ProductsBlock>}
+    <BlockRender type={block.__typename} data={block} />
   </section>
 ))}

@@ -1,0 +1,26 @@
+---
+import BannerBlock from "./banner-block.astro"
+import EmptyBlock from "@/components/ui/empty-block.astro";
+import ProductsBlock from "./products-block.astro";
+
+interface Props {
+  type: string;
+  data: any;
+}
+
+const { type, data } = Astro.props;
+
+const getBlockComponent = () => {
+  switch (type) {
+    case 'BannerBlock':
+      return BannerBlock;
+    case 'ProductsBlock':
+      return ProductsBlock;
+    default:
+      return EmptyBlock;
+  }
+}
+
+const BlockComponent: any = getBlockComponent();
+---
+<BlockComponent {...data} />

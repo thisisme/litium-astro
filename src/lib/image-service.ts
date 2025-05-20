@@ -1,4 +1,4 @@
-import type { Image } from "../models/Image";
+import type { Image } from "@/models/image";
 
 export function getAbsoluteImageUrl(
   image: Image | null,

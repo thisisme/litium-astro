@@ -1,23 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import type { Block } from '../../models/Block';
-import type { ContentFieldType } from '../../models/Content';
-import type { PointerMediaImageItem } from '../../models/Pointers';
-import { getAbsoluteImageUrl } from '../../lib/ImageService';
-import { getBannerUrl } from '../../lib/BannerService';
+import type { BannerField, Block } from '@/models/block';
+import { getAbsoluteImageUrl } from '@/lib/image-service';
+import { getBannerUrl } from '@/lib/banner-service';
+import BannerBlockUi from '@/components/ui/blocks/banner-block.astro';
+import Text from '@/components/ui/text.astro';
 
-export interface BannerType {
-  linkText: string;
-  actionText: string;
-  blockImagePointer?: PointerMediaImageItem;
-  bannerLinkToCategory?: any[];
-  bannerLinkToPage?: any[];
-  bannerLinkToProduct?: any[];
-}
 
-export interface BannerField extends ContentFieldType {
-  banners: BannerType[];
-}
 interface Props extends Block {
   fields: BannerField;
 }
@@ -37,7 +26,7 @@ const { banners } = fields;
   }
 >
   {banners.map((banner) => (
-    <div class="relative">
+    <BannerBlockUi>
       {banner?.blockImagePointer?.item && (
         <Image
           src={getAbsoluteImageUrl(banner.blockImagePointer.item)}
@@ -48,14 +37,15 @@ const { banners } = fields;
           style={{
             maxHeight: `${banner.blockImagePointer.item.dimension.height}px`,
           }}
+          priority={priority}
         />
       )}
       {(banner.linkText || banner.actionText) && (
         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center bg-black/25 rounded p-4 border border-transparent">
-          {banner.linkText && <h2 class="text-9xl text-white m-0">{banner.linkText}</h2>}
+          {banner.linkText && <Text as="h2" class="text-9xl text-white m-0">{banner.linkText}</Text>}
           {banner.actionText && <a class="text-white text-3xl underline inline-block" href={getBannerUrl(banner)}>{banner.actionText}</a>}
         </div>
       )}
-    </div>
+    </BannerBlockUi>
   ))}
 </div>
