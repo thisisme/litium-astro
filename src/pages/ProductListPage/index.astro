@@ -1,0 +1,25 @@
+---
+import BlockContainer from "@/components/connectors/blocks/block-container.astro";
+import Layout from "@/layouts/layout.astro";
+import { executeQuery } from "@/lib/api-client";
+import { query } from "./_graphql";
+import Accordion from "@/components/ui/accordion.astro";
+
+const { url = "/" } = Astro.locals;
+
+const response = await executeQuery(url, query);
+const { data } = await response.json();
+console.log("DATA", data)
+---
+
+<Layout metadata={data.content.metadata}>
+  <main class="mx-auto min-h-[500px] px-5 md:container">
+    <BlockContainer
+      priority
+      blocks={data.content.blocks.main}
+      className=""
+    >
+    </BlockContainer>
+    <Accordion heading="Rubrik">Här kommer det innehåll</Accordion>
+  </main>
+</Layout>
