@@ -1,0 +1,21 @@
+---
+import BlockContainer from "@/components/connectors/blocks/block-container.astro";
+import Layout from "@/layouts/layout.astro";
+import { executeQuery } from "@/lib/api-client";
+import { query } from "./_graphql";
+
+const { url = "/" } = Astro.locals;
+const response = await executeQuery(`${url}`, query);
+const { data } = await response.json();
+---
+
+<Layout metadata={data.content.metadata}>
+  <main class="mx-auto min-h-[500px] px-5 md:container">
+    <BlockContainer
+      priority
+      blocks={data.content.blocks.main}
+      className=""
+    >
+    </BlockContainer>
+  </main>
+</Layout>
