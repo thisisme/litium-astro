@@ -6,7 +6,7 @@ export async function executeQuery(context: string, query: string) {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        "x-litium-storefront-context-url": "https://localhost:4321/b2c-en"
+        "x-litium-storefront-context-url": context
       },
       body: JSON.stringify({
         query

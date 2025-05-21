@@ -1,14 +1,16 @@
 ---
-import { executeQuery } from "../../../lib/api-client";
-import type { BlocksType } from "../../../models/block";
+import { executeQuery } from "@/lib/api-client";
+import type { BlocksType } from "@/models/block";
+import Text from '@/components/ui/text.astro';
 import { query } from "./_graphql";
-const response = await executeQuery("/b2c-en", query);
+const { url = "/" } = Astro.locals;
+const response = await executeQuery(url, query);
 const { data } = await response.json();
 
 const { primaryNavigation } = data.channel.website.blocks as BlocksType;
 ---
 <header>
-  <h1>Litium ❤️ Astro</h1>
+  <Text as="h1" class="text-2xl">Litium ❤️ Astro</Text>
   <nav>
     <ul class="flex">
       {primaryNavigation.map((navigation) => (

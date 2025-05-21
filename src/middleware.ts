@@ -1,8 +1,8 @@
 import { defineMiddleware } from "astro:middleware";
 import { executeQuery } from "./lib/api-client";
 
-async function contentChecker() {
-  const response = executeQuery("https://localhost:4321", `
+async function contentChecker(url: string) {
+  const response = executeQuery(url, `
     query MiddlewareGetContent {
       channel {
         ...Id
@@ -92,9 +92,8 @@ async function contentChecker() {
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const response = await contentChecker();
+  const response = await contentChecker(`${context.url.href}`);
   const data = await response.json();
-
   if (data) {
     if (data.errors) {
       if (context.routePattern !== '/error') {
@@ -102,7 +101,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
         return next("/error")
       }
     }
+    context.locals.url = context.url.href;
     if (data.data) {
+      console.debug("Redirect to template", data.data.content.__typename);
       return next(new Request(`${import.meta.env.RUNTIME_LITIUM_SERVER_URL}/${data.data.content.__typename}`, {
         headers: {
           "x-redirect-to": context.url.pathname

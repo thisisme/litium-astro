@@ -5,7 +5,8 @@ import { executeQuery } from "@/lib/api-client";
 import { query } from "./_graphql";
 import Accordion from "@/components/ui/accordion.astro";
 
-const response = await executeQuery("https://localhost:4321", query);
+const { url = "/" } = Astro.locals;
+const response = await executeQuery(`${url}`, query);
 const { data } = await response.json();
 ---
 

@@ -1,5 +1,5 @@
 export const query = `
-query GetLandingPage {
+  query GetLandingPage {
     content {
       ... on LandingPage {
         ...Metadata
@@ -100,4 +100,4 @@ query GetLandingPage {
       }
     }
   }
-`
+`;
