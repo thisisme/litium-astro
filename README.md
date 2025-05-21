@@ -15,7 +15,7 @@ nvm use
 ```
 
 ## Development
-You need to terminals. One for [proxy](https://docs.litium.com/accelerators/react-accelerator/get-started) and one for dev
+You need two terminals. One for [proxy](https://docs.litium.com/accelerators/react-accelerator/get-started) and one for dev
 ```
 - npm run proxy
 - npm run dev
