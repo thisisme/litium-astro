@@ -5,3 +5,5 @@
 - [] ProductListing
 - [] CategoryProductCategory
 - [] gql.tada
+- [] Playwright
+- [] Typo classes
