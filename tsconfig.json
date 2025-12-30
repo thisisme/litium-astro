@@ -10,10 +10,10 @@
     "plugins": [
       {
         "name": "gql.tada/ts-plugin",
-        "schema": "./schema.graphql",
+        "schema": "https://demo.litium.com/schema.graphql",
         "tadaOutputLocation": "./src/graphql-env.d.ts"
       }
     ],
-    "strict": true,
+    "strict": true
   }
 }

@@ -1,0 +1,18 @@
+---
+import { fetchPage } from "@/lib/litium";
+
+const { slug } = Astro.params;
+
+const [pageData] = await Promise.all([
+  fetchPage(slug),
+]);
+
+if (!pageData) {
+  return Astro.redirect('/404');
+}
+
+const type = pageData.__typename;
+---
+<main>
+  Hepp
+</main>
